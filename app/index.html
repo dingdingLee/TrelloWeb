@@ -2,10 +2,95 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <title>Trello</title>
+    <style>
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #026aa7;
+            color: lightgrey;
+        }
+        .title {
+            text-align: center;
+            font-style: italic;
+            font-family: cursive;
+        }
+        .boardHead ul {
+            list-style:none;
+            margin:0;
+            padding-left: 10px;
+        }
+        .boardHead ul li {
+            margin: 0 0 0 0;
+            padding: 0 0 0 0;
+            border : 0;
+            float: left;
+        }
+        .boardHead .liDetail {
+            padding-left: 20px;
+            padding-top: 18px;
+            font-size: large;
+        }
+        .boardHead .liDetailBack {
+            padding-left: 60%;
+            padding-top: 18px;
+            font-size: large;
+        }
+        body {
+            padding-top: 55px;
+            background-color: #0079BF;
+            color: whitesmoke;
+        }
+        .columnCard {
+            padding-top: 4.1%;
+            padding-left: 10px;
+        }
+        .columnCard .formCard{
+            padding-top: 0%;
+        }
+        .inputBefore {
+            background-color: #07517c;
+            color: rgb(229, 226, 226);
+            width: 17%;
+            height: 35px;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            padding-left: 10px;
+        }
+        .inputBefore::placeholder {
+            background-color: #07517c;
+            color: rgb(229, 226, 226);
+        }
+    </style>
+
+    <nav class="navigation">
+        <h1 class="title">Trello</h1>
+    </nav>
 </head>
 <body>
     <div class="container">
-        <nav><h1>Trello</h1></nav>
+        <div class="boardHead">
+            <ul>
+                <li><h3>웹 프론트엔드 과제</h3></li>
+                <li class="liDetail">☆</li>
+                <li class="liDetail">|</li>
+                <li class="liDetail">Personal</li>
+                <li class="liDetail">|</li>
+                <li class="liDetail">Private</li>
+                <li class="liDetail">|</li>
+                <li class="liDetailBack">&#183;&#183;&#183;</li>
+                <li class="liDetail">Show Menu</li>
+            </ul>
+        </div>
+        <div class="columnCard">
+            <form class="formCard">
+                <input type="text" placeholder="Add a list...." class="inputBefore">
+            </form>
+        </div>
+        <!-- <img src="tr.jpg"> -->
     </div>
 
 </body>
