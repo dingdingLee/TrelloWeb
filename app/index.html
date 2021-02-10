@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <title>Trello</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         .navigation {
             position: fixed;
             top: 0;
@@ -43,17 +46,27 @@
             background-color: #0079BF;
             color: whitesmoke;
         }
-        .columnCard {
-            padding-top: 4.1%;
-            padding-left: 10px;
+        .row:before {
+            content: "";
+            display: table;
+            clear: both;
         }
-        .columnCard .formCard{
+        .columnList {
+            /* padding-top: 4.1%;
+            padding-left: 10px; */
+            float: left;
+            width: 30%;
+            padding: 10px;
+            padding-right: 60px;
+            height: 300px;
+        }
+        .columnList .formList{
             padding-top: 0%;
         }
         .inputBefore {
             background-color: #07517c;
             color: rgb(229, 226, 226);
-            width: 17%;
+            width: 80%;
             height: 35px;
             border: none;
             border-radius: 4px;
@@ -64,11 +77,110 @@
             background-color: #07517c;
             color: rgb(229, 226, 226);
         }
+        .listWrite {
+            background-color: gainsboro;
+            width: 80%;
+            height: 85px;
+            border-radius: 4px;
+            padding-left: 4px;
+            padding-top: 4px;
+        }
+        .inputAfterList {
+            background-color: rgb(202, 201, 201);
+            width: 98%;
+            height: 33px;
+            border-color: rgb(192, 190, 190);
+            border-radius: 4px;
+            border-inline-color: rgb(240, 239, 239);
+            font-size: 15px;
+            padding-left: 10px;
+        }
+        .saveButton {
+            background-color: #61bd4f;
+            box-shadow: none;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 70px;
+            height: 35px;
+            margin-top: 5px;
+            font-size: 15px;
+        }
+        .buttonCancle {
+            vertical-align: middle;
+            margin-bottom: 23px;
+            height: 50px;
+            color: gray;
+            height: 10px;
+            font-size: 30px;
+            border: none;
+            background-color: gainsboro;
+        }
+        .buttonCancle.focus {
+            outline: none;
+        }
+        .formlistTitle {
+            color: black;
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 17px;
+        }
+        .addCardLink {
+            position: absolute;
+            color: gray;
+            margin-top: 2%;
+            margin-left: 10px;
+           
+        }
+        .addCardLink:hover {
+            position: absolute;
+            color: gray;
+            margin-top: 2%;
+            margin-left: 10px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
     </style>
 
     <nav class="navigation">
         <h1 class="title">Trello</h1>
     </nav>
+
+    <script>
+        const listAddTemplate = '<div class="listWrite"><input type="text" placeholder="Add a list...." id="inputAfterList" class="inputAfterList">'
+             +'<br/><input onClick="onSaveClick()"  type="submit" class="saveButton" value="Save"/>'
+             +'<button onClick="onButtonCancleClick()" class="buttonCancle">&#215;</button></div>' 
+             
+        const listInit = '<div class="listWrite"></div>' 
+        
+        let listTitle = ''
+
+
+        
+        function onWriteClick() {
+            document.querySelector(".formList").innerHTML = listAddTemplate
+            document.getElementById("inputAfterList").focus();
+        }
+        
+        // 리스트 이름 입력하고 저장버튼 누를시
+        function onSaveClick() {
+            listTitle = document.getElementById("inputAfterList").value;
+            console.log('..:'+listTitle)
+            document.querySelector(".formList").innerHTML = '<div class="listWrite">'
+             +'<span class="formlistTitle">'+listTitle+'</span>'
+             +'<br/><a class="addCardLink" onclick="addCardLink()" >Add a card...</a></div>'
+        }
+
+        // 리스트 이름 입력할때 X버튼 누를시
+        function onButtonCancleClick(){
+            document.querySelector(".formList").innerHTML = 
+            '<input type="text" placeholder="Add a list...." class="inputBefore" onclick="onWriteClick()">'
+        }
+        function addCardLink() {
+            console.log('나 클릭햇오')
+        }
+    </script>
+
 </head>
 <body>
     <div class="container">
@@ -85,10 +197,38 @@
                 <li class="liDetail">Show Menu</li>
             </ul>
         </div>
-        <div class="columnCard">
-            <form class="formCard">
-                <input type="text" placeholder="Add a list...." class="inputBefore">
-            </form>
+        <div class="row">
+            <div class="columnList">
+                <form class="formList">
+                    <input type="text" placeholder="Add a list...." class="inputBefore"
+                    onclick="onWriteClick()">
+                    
+                </form>
+            </div>
+            <!--  -->
+            <div class="columnList">
+                <form class="formList">
+                    <input type="text" placeholder="Add a list...." class="inputBefore"
+                    onclick="onWriteClick()">
+                    <div class="listWrite">
+                        <span class="formlistTitle">안녕</span>
+                        <br/>
+                        <a class="addCardLink" onclick="addCardLink()" >Add a card...</a>
+                    </div>
+                </form>
+            </div>
+            <div class="columnList">
+                <form class="formList">
+                    <input type="text" placeholder="Add a list...." class="inputBefore"
+                    onclick="onWriteClick()">
+                    <div class="listWrite">
+                        <span class="formlistTitle">안녕</span>
+                        <br/>
+                        <a class="addCardLink" onclick="addCardLink()" >Add a card...</a>
+                    </div>
+                </form>
+            </div>
+            <!--  -->
         </div>
         <!-- <img src="tr.jpg"> -->
     </div>
