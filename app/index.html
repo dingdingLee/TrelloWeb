@@ -81,7 +81,7 @@
         .listWrite {
             background-color: gainsboro;
             width: 80%;
-            height: 85px;
+            height: 50%;
             border-radius: 4px;
             padding-top: 4px;
         }
@@ -104,9 +104,11 @@
             border-radius: 4px;
             margin-left: 5px;
             width: 70px;
-            height: 35px;
-            margin-top: 7px;
+            height: 31.5px;
+            margin-top: 5px;
             font-size: 15px;
+            padding-top: 2px;
+            /* padding-bottom: 2px; */
         }
         .addButton {
             background-color: #46a333;
@@ -133,8 +135,9 @@
         }
         .buttonCancle {
             vertical-align: middle;
-            margin-bottom: 23px;
+            margin-bottom: 26px;
             margin-left: 3px;
+            padding-bottom: 5px;
             height: 50px;
             color: gray;
             height: 10px;
@@ -184,7 +187,7 @@
             background-color: gainsboro;
             width: 100%;
             height: 39px;
-            margin-top: 7%;
+            margin-top: 4%;
             border-bottom-left-radius: 4px;
             border-bottom-right-radius: 4px;
         }
@@ -204,6 +207,23 @@
             border-radius: 3px;
             border: none;
             font-size: 15px;
+        }
+        .dragCard {
+            display: inline-block;
+            background-color: white;
+            margin-left: 10px;
+            margin-top: 15px;
+            width: 92%;
+            height: 33px;
+            border-radius: 4px;
+            color: #000;
+            font-style: inherit;
+        }
+        .dragCardBackground {
+            position: relative;
+            background-color: blue;
+            width: 100%;
+            height: 60px;
         }
     </style>
 
@@ -269,6 +289,8 @@
         function addCardLink(obj) {
             let addCardLinkNum = obj.parentNode.parentNode.getAttribute("class");
             document.querySelector(".addDivTextarea"+addCardLinkNum.slice(-1)).innerHTML = writeTextarea
+            let num = document.querySelector(".addDivTextarea"+addCardLinkNum.slice(-1)).firstChild.childNodes.length
+            document.querySelector(".addDivTextarea"+addCardLinkNum.slice(-1)).firstChild.childNodes[num-3].focus()
         }
         // 카드 추가할 때 X버튼 눌렀을 시 
         function onAddButtonCancleClick(obj) {
@@ -276,6 +298,12 @@
             let addDivTextareaNum = obj.parentNode.parentNode.getAttribute("class");
             // 카드갯수가 없을때만 
             document.querySelector(".addDivTextarea"+addDivTextareaNum.slice(-1)).innerHTML = addCardHtml
+        }
+        // 카드 Add 버튼 클릭 시
+        function onAddCardClick(obj) {
+            let addCardListNum = obj.parentNode.parentNode.getAttribute("class");
+
+            
         }
 
 
@@ -318,13 +346,31 @@
             </div>
             <div class="columnList">
                 <form class="formList4">
-                    <!-- <div class="listWrite">
+                    <!--  -->
+                     <div class="listWrite">
                         <span class="formlistTitle">리스트 이름</span>
                         <br/>
-                        <div class="addDivTextarea">
+                        <div class="addDivTextarea4">
+                            <div class="dragCardBackground">
+                                <span class="dragCard" ondragstart="dragStart(event)" ondragend="dragEnd(event)" draggable="true">카드이름</span>
+                            </div>
+                            <div class="dragCardBackground">
+                                <span class="dragCard" ondragstart="dragStart(event)" ondragend="dragEnd(event)" draggable="true">카드이름</span>
+                            </div>
+                            <div class="dragCardBackground">
+                                <span class="dragCard" ondragstart="dragStart(event)" ondragend="dragEnd(event)" draggable="true">카드이름</span>
+                            </div>
+                            <div class="dragCardBackground">
+                                <span class="dragCard" ondragstart="dragStart(event)" ondragend="dragEnd(event)" draggable="true">카드이름</span>
+                            </div>
                             
+                            <div class="addLinkDiv">
+                                <a class="addCardLink" onclick="addCardLink(this)" >Add a card...</a>
+                            </div>
                         </div>
-                    </div>                 -->
+                    </div>
+                      
+                    <!--  -->
                 </form>
             </div>
             <!--  -->
