@@ -55,14 +55,15 @@
             /* padding-top: 4.1%;
             padding-left: 10px; */
             float: left;
-            width: 30%;
-            padding: 10px;
-            padding-right: 60px;
+            width: 23%;
+            margin-left: 1%;
+            /* padding: 10px;
+            padding-right: 60px;    */
             height: 300px;
         }
-        .columnList .formList{
+        /* .columnList .formList{
             padding-top: 0%;
-        }
+        } */
         .inputBefore {
             background-color: #07517c;
             color: rgb(229, 226, 226);
@@ -125,6 +126,20 @@
             font-weight: bold;
             font-size: 17px;
         }
+        .listEditName{
+            position: absolute;
+            color: gray;
+            margin-left: 13%;
+            font-size: 20px;
+        }
+        .listEditName:hover {
+            position: absolute;
+            color: gray;
+            margin-left: 13%;
+            font-size: 20px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
         .addCardLink {
             position: absolute;
             color: gray;
@@ -148,34 +163,40 @@
 
     <script>
         const listAddTemplate = '<div class="listWrite"><input type="text" placeholder="Add a list...." id="inputAfterList" class="inputAfterList">'
-             +'<br/><input onClick="onSaveClick()"  type="submit" class="saveButton" value="Save"/>'
-             +'<button onClick="onButtonCancleClick()" class="buttonCancle">&#215;</button></div>' 
+             +'<br/><input onClick="onSaveClick(this);"  type="submit" class="saveButton" value="Save"/>'
+             +'<button onClick="onButtonCancleClick(this);" class="buttonCancle">&#215;</button></div>' 
              
         const listInit = '<div class="listWrite"></div>' 
         
         let listTitle = ''
+        let a = '';    
 
-
-        
-        function onWriteClick() {
-            document.querySelector(".formList").innerHTML = listAddTemplate
-            document.getElementById("inputAfterList").focus();
+        // 맨 처음 list 이름 입력 전
+        function onWriteClick(obj) {
+            let writeclick = obj.parentNode.getAttribute("class");
+            document.querySelector(".formList"+writeclick.slice(-1)).innerHTML = listAddTemplate
+            document.querySelector(".formList"+writeclick.slice(-1)).firstChild.firstChild.focus()
         }
         
         // 리스트 이름 입력하고 저장버튼 누를시
-        function onSaveClick() {
-            listTitle = document.getElementById("inputAfterList").value;
-            console.log('..:'+listTitle)
-            document.querySelector(".formList").innerHTML = '<div class="listWrite">'
+        function onSaveClick(obj) {
+            let saveClick = obj.parentNode.parentNode.getAttribute("class");
+            let listTitle = document.querySelector(".formList"+saveClick.slice(-1)).firstChild.firstChild.value;
+
+            document.querySelector(".formList"+saveClick.slice(-1)).innerHTML = '<div class="listWrite">'
              +'<span class="formlistTitle">'+listTitle+'</span>'
+             +'<a class="listEditName">&#183;&#183;&#183;</a>'
              +'<br/><a class="addCardLink" onclick="addCardLink()" >Add a card...</a></div>'
         }
 
         // 리스트 이름 입력할때 X버튼 누를시
-        function onButtonCancleClick(){
-            document.querySelector(".formList").innerHTML = 
-            '<input type="text" placeholder="Add a list...." class="inputBefore" onclick="onWriteClick()">'
+        function onButtonCancleClick(obj){
+            let buttonCancle = obj.parentNode.parentNode.getAttribute("class");
+            console.log("b값:"+buttonCancle)
+            document.querySelector(".formList"+buttonCancle.slice(-1)).innerHTML = 
+            '<input type="text" placeholder="Add a list...." class="inputBefore" onclick="onWriteClick(this)">'
         }
+        // Add a card... 클릭했을시
         function addCardLink() {
             console.log('나 클릭햇오')
         }
@@ -199,33 +220,32 @@
         </div>
         <div class="row">
             <div class="columnList">
-                <form class="formList">
+                <form class="formList1">
                     <input type="text" placeholder="Add a list...." class="inputBefore"
-                    onclick="onWriteClick()">
+                    onclick="onWriteClick(this);">
                     
                 </form>
             </div>
             <!--  -->
             <div class="columnList">
-                <form class="formList">
+                <form class="formList2">
                     <input type="text" placeholder="Add a list...." class="inputBefore"
-                    onclick="onWriteClick()">
-                    <div class="listWrite">
-                        <span class="formlistTitle">안녕</span>
-                        <br/>
-                        <a class="addCardLink" onclick="addCardLink()" >Add a card...</a>
-                    </div>
+                    onclick="onWriteClick(this);">
+                    
                 </form>
             </div>
             <div class="columnList">
-                <form class="formList">
+                <form class="formList3">
                     <input type="text" placeholder="Add a list...." class="inputBefore"
-                    onclick="onWriteClick()">
-                    <div class="listWrite">
-                        <span class="formlistTitle">안녕</span>
-                        <br/>
-                        <a class="addCardLink" onclick="addCardLink()" >Add a card...</a>
-                    </div>
+                    onclick="onWriteClick(this);">
+                    
+                </form>
+            </div>
+            <div class="columnList">
+                <form class="formList4">
+                    <input type="text" placeholder="Add a list...." class="inputBefore"
+                    onclick="onWriteClick(this);">
+                    
                 </form>
             </div>
             <!--  -->
