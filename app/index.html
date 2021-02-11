@@ -97,16 +97,39 @@
             padding-left: 10px;
         }
         .saveButton {
-            background-color: #61bd4f;
+            background-color: #46a333;
             box-shadow: none;
             color: white;
             border: none;
             border-radius: 4px;
-            margin-left: 3px;
+            margin-left: 5px;
+            width: 70px;
+            height: 35px;
+            margin-top: 7px;
+            font-size: 15px;
+        }
+        .addButton {
+            background-color: #46a333;
+            box-shadow: none;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-left: 5.5px;
             width: 70px;
             height: 35px;
             margin-top: 5px;
             font-size: 15px;
+        }
+        .addButtonCancle {
+            vertical-align: middle;
+            margin-bottom: 23px;
+            margin-left: 3px;
+            height: 50px;
+            color: gray;
+            height: 10px;
+            font-size: 30px;
+            border: none;
+            background-color: gainsboro;
         }
         .buttonCancle {
             vertical-align: middle;
@@ -168,6 +191,20 @@
         .addLinkDiv:hover {
             background-color: rgb(184, 182, 182);
         }
+        .addListTextarea {
+            background-color: gainsboro;
+            width: 100%;
+            height: 127px;
+            margin-top: 7%;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+        .textareaStyle {
+            margin-left: 5.5px;
+            border-radius: 3px;
+            border: none;
+            font-size: 15px;
+        }
     </style>
 
     <nav class="navigation">
@@ -176,8 +213,8 @@
 
     <script>
         const listAddTemplate = '<div class="listWrite"><input type="text" placeholder="Add a list...." id="inputAfterList" class="inputAfterList">'
-             +'<br/><input onClick="onSaveClick(this);"  type="submit" class="saveButton" value="Save"/>'
-             +'<button onClick="onButtonCancleClick(this);" class="buttonCancle">&#215;</button></div>' 
+                                +'<br/><input onClick="onSaveClick(this);"  type="submit" class="saveButton" value="Save"/>'
+                                +'<button onClick="onButtonCancleClick(this);" class="buttonCancle">&#215;</button></div>' 
         
         let listTitle = ''     
         
@@ -187,9 +224,16 @@
         //                 +'<br/><div class="addLinkDiv"><a class="addCardLink" onclick="addCardLink()" >Add a card...</a></div></div>'
 
         const formInit = '<input type="text" placeholder="Add a list...." class="inputBefore" onclick="onWriteClick(this)">'
+
+        const writeTextarea = '<div class="addListTextarea">'
+                             +'<textarea cols="31" rows="4 " class="textareaStyle"></textarea>'
+                             +'<input onClick="onAddCardClick(this);"  type="submit" class="addButton" value="Add"/>'
+                             +'<button onClick="onAddButtonCancleClick(this);" class="addButtonCancle">&#215;</button></div>'
         
+        let beforeSaveHtml = ''
         
-        
+        let addCardHtml = '<div class="addLinkDiv"><a class="addCardLink" onclick="addCardLink(this)" >Add a card...</a></div></div></div>'
+
 
         // 리스트 이름 입력하려고 클릭 후, 맨 처음 list 이름 입력 전
         function onWriteClick(obj) {
@@ -207,7 +251,7 @@
             document.querySelector(".formList"+saveClick.slice(-1)).innerHTML = '<div class="listWrite">'
              +'<span class="formlistTitle">'+listTitle+'</span>'
              +'<a class="listEditName">&#183;&#183;&#183;</a>'
-             +'<br/><div class="addLinkDiv"><a class="addCardLink" onclick="addCardLink()" >Add a card...</a></div></div>'
+             +'<br/><div class="addDivTextarea'+saveClick.slice(-1)+'"><div class="addLinkDiv"><a class="addCardLink" onclick="addCardLink(this)" >Add a card...</a></div></div></div>'
 
             if(saveClick.slice(-1)<4){
                 document.querySelector(".formList"+saveClickNum.toString()).innerHTML = listAddTemplate
@@ -218,14 +262,23 @@
         // 리스트 이름 입력할때 X버튼 누를시
         function onButtonCancleClick(obj){
             let buttonCancle = obj.parentNode.parentNode.getAttribute("class");
-            console.log("b값:"+buttonCancle)
             document.querySelector(".formList"+buttonCancle.slice(-1)).innerHTML = formInit
             
         }
         // Add a card... 클릭했을시
-        function addCardLink() {
-            console.log('나 클릭햇오')
+        function addCardLink(obj) {
+            let addCardLinkNum = obj.parentNode.parentNode.getAttribute("class");
+            document.querySelector(".addDivTextarea"+addCardLinkNum.slice(-1)).innerHTML = writeTextarea
         }
+        // 카드 추가할 때 X버튼 눌렀을 시 
+        function onAddButtonCancleClick(obj) {
+            // beforeSaveHtml
+            let addDivTextareaNum = obj.parentNode.parentNode.getAttribute("class");
+            // 카드갯수가 없을때만 
+            document.querySelector(".addDivTextarea"+addDivTextareaNum.slice(-1)).innerHTML = addCardHtml
+        }
+
+
     </script>
 
 </head>
@@ -265,7 +318,13 @@
             </div>
             <div class="columnList">
                 <form class="formList4">
-                                
+                    <!-- <div class="listWrite">
+                        <span class="formlistTitle">리스트 이름</span>
+                        <br/>
+                        <div class="addDivTextarea">
+                            
+                        </div>
+                    </div>                 -->
                 </form>
             </div>
             <!--  -->
