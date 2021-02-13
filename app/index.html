@@ -116,7 +116,7 @@
             color: white;
             border: none;
             border-radius: 4px;
-            margin-left: 5.5px;
+            margin-left: 12px;
             width: 70px;
             height: 35px;
             margin-top: 5px;
@@ -198,12 +198,12 @@
             background-color: gainsboro;
             width: 100%;
             height: 127px;
-            margin-top: 7%;
+            /* margin-top: 7%; */
             border-bottom-left-radius: 4px;
             border-bottom-right-radius: 4px;
         }
         .textareaStyle {
-            margin-left: 5.5px;
+            margin-left: 12px;
             border-radius: 3px;
             border: none;
             font-size: 15px;
@@ -218,13 +218,33 @@
             border-radius: 4px;
             color: #000;
             font-style: inherit;
+            padding-top: 5px;
+            padding-left: 5px;
         }
-        .dragCardBackground {
+        /* .dragCardBackground1 {
+            position: relative;
+            background-color: pink;
+            width: 100%;
+            height: 60px;
+        }
+        .dragCardBackground2 {
+            position: relative;
+            background-color: paleturquoise;
+            width: 100%;
+            height: 60px;
+        }
+        .dragCardBackground3 {
+            position: relative;
+            background-color: palevioletred;
+            width: 100%;
+            height: 60px;
+        }
+        .dragCardBackground4 {
             position: relative;
             background-color: blue;
             width: 100%;
             height: 60px;
-        }
+        } */
     </style>
 
     <nav class="navigation">
@@ -246,7 +266,7 @@
         const formInit = '<input type="text" placeholder="Add a list...." class="inputBefore" onclick="onWriteClick(this)">'
 
         const writeTextarea = '<div class="addListTextarea">'
-                             +'<textarea cols="31" rows="4 " class="textareaStyle"></textarea>'
+                             +'<textarea cols="29" rows="4 " class="textareaStyle"></textarea>'
                              +'<input onClick="onAddCardClick(this);"  type="submit" class="addButton" value="Add"/>'
                              +'<button onClick="onAddButtonCancleClick(this);" class="addButtonCancle">&#215;</button></div>'
         
@@ -287,17 +307,21 @@
         }
         // Add a card... 클릭했을시
         function addCardLink(obj) {
-            let addCardLinkNum = obj.parentNode.parentNode.getAttribute("class");
-            document.querySelector(".addDivTextarea"+addCardLinkNum.slice(-1)).innerHTML = writeTextarea
-            let num = document.querySelector(".addDivTextarea"+addCardLinkNum.slice(-1)).firstChild.childNodes.length
-            document.querySelector(".addDivTextarea"+addCardLinkNum.slice(-1)).firstChild.childNodes[num-3].focus()
+            let addCardLinkNum = obj.parentNode.parentNode.parentNode.parentNode.getAttribute("class");// lastChild  ///formList4
+            // document.getElementById(".addDivTextarea"+addCardLinkNum.slice(-1)).appendChild(writeTextarea)
+            // let num = document.querySelector(".addDivTextarea"+addCardLinkNum.slice(-1)).firstChild.childNodes.length
+            // document.querySelector(".addDivTextarea"+addCardLinkNum.slice(-1)).firstChild.childNodes[num-3].focus()
+            let ex = obj.parentNode
+            obj.parentNode.innerHTML = writeTextarea 
+
+            // let num = document.querySelector(".formList"+addCardLinkNum.slice(-1)).childNodes
+            // document.querySelector(".formList"+addCardLinkNum.slice(-1)).firstChild.lastChild.childNodes[0].focus()
         }
         // 카드 추가할 때 X버튼 눌렀을 시 
         function onAddButtonCancleClick(obj) {
-            // beforeSaveHtml
             let addDivTextareaNum = obj.parentNode.parentNode.getAttribute("class");
-            // 카드갯수가 없을때만 
-            document.querySelector(".addDivTextarea"+addDivTextareaNum.slice(-1)).innerHTML = addCardHtml
+            // document.querySelector(".addDivTextarea"+addDivTextareaNum.slice(-1)).innerHTML = addCardHtml
+            obj.parentNode.parentNode.innerHTML = addCardHtml 
         }
         // 카드 Add 버튼 클릭 시
         function onAddCardClick(obj) {
@@ -305,7 +329,36 @@
 
             
         }
+        // 드래그 이벤트
+        function dropEvent(event) {
+            event.preventDefault();
+        }
+        function dropCard(event) {
+            event.preventDefault();
+            let getEvent = event.dataTransfer.getData("text/plain")
+                let getEventId = document.getElementById(getEvent)
+                let getParentId = getEventId.parentElement
+                let targetId = document.getElementById(event.target.id)
+                let targetParentId = targetId.parentElement
+            
+                if (targetParentId.id !== getParentId.id){
+                    if (targetId.className === getEventId.className ){
+                        targetParentId.appendChild(getEventId)
+                    }else{
+                        targetId.appendChild(getEventId)                    
+                    }                
+                }else{
+                    let tgId=targetId
+                    let tgIdCt=tgId.textContent
+                    targetId.textContent=getEventId.textContent
+                    getEventId.textContent=tgIdCt
+                    tgIdCt=''
+            }
+        }
 
+        function dragStart(event) {
+            event.dataTransfer.setData("text/plain", event.target.id);
+        }
 
     </script>
 
@@ -341,36 +394,64 @@
             </div>
             <div class="columnList">
                 <form class="formList3">
-                   
+                   <!--  -->
+                   <div class="listWrite">
+                    <span class="formlistTitle">리스트 이름222</span>
+                    <br/>
+                    <div class="addDivTextarea3" id="addDivTextarea3" ondragover="dropEvent(event);" ondrop="dropCard(event);">
+                        <!-- <div class="dragCardBackground21"> -->
+                            <span class="dragCard" id="dargCard21" ondragstart="dragStart(event);" draggable="true">카드이름21</span>
+                        <!-- </div>
+                        <div class="dragCardBackground22"> -->
+                            <span class="dragCard" id="dargCard22" ondragstart="dragStart(event);"  draggable="true">카드이름22</span>
+                        <!-- </div>
+                        <div class="dragCardBackground23"> -->
+                            <span class="dragCard" id="dargCard23" ondragstart="dragStart(event);" draggable="true">카드이름23</span>
+                        <!-- </div>
+                        <div class="dragCardBackground24"> -->
+                            <span class="dragCard" id="dargCard24" ondragstart="dragStart(event);" draggable="true">카드이름24</span>
+                        <!-- </div> -->
+                        
+                        
+                    </div>
+                    <div class="addLinkDiv">
+                        <a class="addCardLink" onclick="addCardLink(this)" >Add a card...</a>
+                    </div>
+                </div>
+                  
+                <!--  -->
                 </form>
             </div>
             <div class="columnList">
                 <form class="formList4">
-                    <!--  -->
+                    
                      <div class="listWrite">
                         <span class="formlistTitle">리스트 이름</span>
                         <br/>
-                        <div class="addDivTextarea4">
-                            <div class="dragCardBackground">
-                                <span class="dragCard" ondragstart="dragStart(event)" ondragend="dragEnd(event)" draggable="true">카드이름</span>
-                            </div>
-                            <div class="dragCardBackground">
-                                <span class="dragCard" ondragstart="dragStart(event)" ondragend="dragEnd(event)" draggable="true">카드이름</span>
-                            </div>
-                            <div class="dragCardBackground">
-                                <span class="dragCard" ondragstart="dragStart(event)" ondragend="dragEnd(event)" draggable="true">카드이름</span>
-                            </div>
-                            <div class="dragCardBackground">
-                                <span class="dragCard" ondragstart="dragStart(event)" ondragend="dragEnd(event)" draggable="true">카드이름</span>
-                            </div>
+                        <div class="addDivTextarea4" id="addDivTextarea4" ondragover="dropEvent(event);" ondrop="dropCard(event);">
+                            <!-- <div class="dragCardBackground1"> -->
+                                <span class="dragCard" id="dargCard1" ondragstart="dragStart(event);" draggable="true">카드이름1</span>
+                            <!-- </div>
+                            <div class="dragCardBackground2"> -->
+                                <span class="dragCard" id="dargCard2" ondragstart="dragStart(event);"  draggable="true">카드이름2</span>
+                            <!-- </div>
+                            <div class="dragCardBackground3"> -->
+                                <span class="dragCard" id="dargCard3" ondragstart="dragStart(event);" draggable="true">카드이름3</span>
+                            <!-- </div>
+                            <div class="dragCardBackground4"> -->
+                                <span class="dragCard" id="dargCard4" ondragstart="dragStart(event);" draggable="true">카드이름4</span>
+                            <!-- </div> -->
                             
-                            <div class="addLinkDiv">
+                            <!-- <div class="addLinkDiv">
                                 <a class="addCardLink" onclick="addCardLink(this)" >Add a card...</a>
-                            </div>
+                            </div> -->
+                        </div>
+                        <div class="addLinkDiv">
+                            <a class="addCardLink" onclick="addCardLink(this)" >Add a card...</a>
                         </div>
                     </div>
                       
-                    <!--  -->
+                   
                 </form>
             </div>
             <!--  -->
