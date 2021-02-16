@@ -291,7 +291,7 @@
             document.querySelector(".formList"+saveClick.slice(-1)).innerHTML = '<div class="listWrite">'
              +'<span class="formlistTitle">'+listTitle+'</span>'
              +'<a class="listEditName">&#183;&#183;&#183;</a>'
-             +'<br/><div class="addDivTextarea'+saveClick.slice(-1)+'"><div class="addLinkDiv"><a class="addCardLink" onclick="addCardLink(this)" >Add a card...</a></div></div></div>'
+             +'<br/><div class="addDivTextarea'+saveClick.slice(-1)+'"></div><div class="addLinkDiv"><a class="addCardLink" onclick="addCardLink(this)" >Add a card...</a></div></div>'
 
             if(saveClick.slice(-1)<4){
                 document.querySelector(".formList"+saveClickNum.toString()).innerHTML = listAddTemplate
@@ -338,14 +338,19 @@
             let getEvent = event.dataTransfer.getData("text/plain")
                 let getEventId = document.getElementById(getEvent)
                 let getParentId = getEventId.parentElement
+                let getFirstParentId = getEventId.parentElement.parentElement.parentElement
                 let targetId = document.getElementById(event.target.id)
+                if(targetId==null){
+                    targetId = event.currentTarget
+                }
                 let targetParentId = targetId.parentElement
             
                 if (targetParentId.id !== getParentId.id){
-                    if (targetId.className === getEventId.className ){
+                    if (targetId.className === getEventId.className ){ 
                         targetParentId.appendChild(getEventId)
-                    }else{
-                        targetId.appendChild(getEventId)                    
+   
+                    }else{ // 카드 사이에 드래그 할 시에 
+                        targetId.appendChild(getEventId) 
                     }                
                 }else{
                     let tgId=targetId
@@ -396,9 +401,10 @@
                 <form class="formList3">
                    <!--  -->
                    <div class="listWrite">
+                    <div class="addDivTextarea3" id="addDivTextarea3" ondragover="dropEvent(event);" ondrop="dropCard(event);">
                     <span class="formlistTitle">리스트 이름222</span>
                     <br/>
-                    <div class="addDivTextarea3" id="addDivTextarea3" ondragover="dropEvent(event);" ondrop="dropCard(event);">
+                    
                         <!-- <div class="dragCardBackground21"> -->
                             <span class="dragCard" id="dargCard21" ondragstart="dragStart(event);" draggable="true">카드이름21</span>
                         <!-- </div>
@@ -426,9 +432,10 @@
                 <form class="formList4">
                     
                      <div class="listWrite">
+                        <div class="addDivTextarea4" id="addDivTextarea4" ondragover="dropEvent(event);" ondrop="dropCard(event);">
                         <span class="formlistTitle">리스트 이름</span>
                         <br/>
-                        <div class="addDivTextarea4" id="addDivTextarea4" ondragover="dropEvent(event);" ondrop="dropCard(event);">
+                        
                             <!-- <div class="dragCardBackground1"> -->
                                 <span class="dragCard" id="dargCard1" ondragstart="dragStart(event);" draggable="true">카드이름1</span>
                             <!-- </div>
