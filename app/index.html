@@ -241,6 +241,7 @@
         .dragCard:hover {
             background-color: rgb(238, 236, 236);
         }
+        
     </style>
 
     <nav class="navigation">
@@ -378,35 +379,36 @@
         function dropCard(event) {
             event.preventDefault();
             let getEvent = event.dataTransfer.getData("text/plain")
-                let getEventId = document.getElementById(getEvent)
-                let getParentId = getEventId.parentElement
-                let getFirstParentId = getEventId.parentElement.parentElement.parentElement
-                let targetId = document.getElementById(event.target.id)
-                if(targetId==null){
-                    targetId = event.currentTarget
-                }
+            let getEventId = document.getElementById(getEvent)
+            let getParentId = getEventId.parentElement
+            let getFirstParentId = getEventId.parentElement.parentElement.parentElement
+            let targetId = document.getElementById(event.target.id)
+                
+            if(targetId==null){
+                targetId = event.currentTarget
+            }
 
-                if(targetId.getAttribute("class")=='formlistTitle'){
-                    targetId = targetId.parentElement
-                }
+            if(targetId.getAttribute("class")=='formlistTitle'){
+                targetId = targetId.parentElement
+            }
 
-                let targetParentId = targetId.parentElement
-            
-                if (targetParentId.id !== getParentId.id){
-                    if (targetId.className === getEventId.className ){ 
-                        targetParentId.appendChild(getEventId)
-   
-                    }else{ // 카드 사이에 드래그 할 시에 
-                        targetId.appendChild(getEventId) 
-                    }                
-                }else{
-                    if (targetId.className === getEventId.className ){ 
-                        let tgId=targetId
-                        let tgIdCt=tgId.textContent
-                        targetId.textContent=getEventId.textContent
-                        getEventId.textContent=tgIdCt
-                        tgIdCt=''
-                    }
+            let targetParentId = targetId.parentElement
+        
+            if (targetParentId.id !== getParentId.id){
+                if (targetId.className === getEventId.className ){ 
+                    targetParentId.appendChild(getEventId)
+
+                }else{ // 카드 사이에 드래그 할 시에 
+                    targetId.appendChild(getEventId) 
+                }                
+            }else{
+                if (targetId.className === getEventId.className ){ 
+                    let tgId=targetId
+                    let tgIdCt=tgId.textContent
+                    targetId.textContent=getEventId.textContent
+                    getEventId.textContent=tgIdCt
+                    tgIdCt=''
+                }
             }
         }
 
