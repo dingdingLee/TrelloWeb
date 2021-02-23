@@ -322,9 +322,16 @@
         }
         // Add a card... 클릭했을시
         function addCardLink(obj) {
-            let addCardLinkNum = obj.parentNode.parentNode.parentNode.getAttribute("class");// lastChild  ///formList4
-            if(addCardLinkNum=='listWrite'){
-                addCardLinkNum = obj.parentNode.parentNode.parentNode.parentNode.getAttribute("class");
+            let lengthArray = obj.onclick.arguments[0].path.length
+            let addCardLinkNum = ''
+            for(let i=0;i<(lengthArray-2);i++){
+                let addCardLinkClassNull = obj.onclick.arguments[0].path[i].getAttribute("class")
+                if(addCardLinkClassNull!=null||addCardLinkClassNull!=''||addCardLinkClassNull!=undefined){
+                    let addCardLinkClass = obj.onclick.arguments[0].path[i].getAttribute("class") || '-'    
+                        if(addCardLinkClass.indexOf("formList")>=0){
+                            addCardLinkNum =  obj.onclick.arguments[0].path[i].getAttribute("class").slice(-1)
+                        }
+                }
             }
             
             obj.parentNode.innerHTML = '<div class="addListTextarea">'
@@ -339,7 +346,8 @@
         }
         // 카드 Add 버튼 클릭 시
         function onAddCardClick(obj) {
-            let apendDivTextarea = obj.form.getAttribute("class");
+            let apendDivTextarea = obj.form.getAttribute("class")
+            // let apendDivTextarea = obj.parentNode.parentNode.parentNode.firstChild.getAttribute("class");
             // if(apendDivTextarea=='addLinkDiv'){
             //     apendDivTextarea = obj.parentNode.parentNode.parentNode.parentNode.firstChild.getAttribute("class");
             // }
@@ -364,6 +372,11 @@
                 if(targetId==null){
                     targetId = event.currentTarget
                 }
+
+                if(targetId.getAttribute("class")=='formlistTitle'){
+                    targetId = targetId.parentElement
+                }
+
                 let targetParentId = targetId.parentElement
             
                 if (targetParentId.id !== getParentId.id){
@@ -414,7 +427,6 @@
                     
                 </form>
             </div>
-            <!--  -->
             <div class="columnList">
                 <form class="formList2" onsubmit="return false;">
                     
@@ -422,22 +434,7 @@
             </div>
             <div class="columnList">
                 <form class="formList3" onsubmit="return false;">
-                   <!--  -->
-                   <!-- <div class="listWrite">
-                    <div class="addDivTextarea3" id="addDivTextarea3" ondragover="dropEvent(event);" ondrop="dropCard(event);">
-                    <span class="formlistTitle">리스트 이름222</span>
-                    <br/>
-                    
-                            <span class="dragCard" id="dargCard21" ondragstart="dragStart(event);" draggable="true">카드이름21</span>
-                            <pan class="dragCard" id="dargCard24" ondragstart="dragStart(event);" draggable="true">카드이름24</span>
-                        
-                    </div>
-                    <div class="addLinkDiv">
-                        <a class="addCardLink" onclick="addCardLink(this)" >Add a card...</a>
-                    </div>
-                </div> -->
                   
-                <!--  -->
                 </form>
             </div>
             <div class="columnList">
@@ -445,9 +442,7 @@
                     
                 </form>
             </div>
-            <!--  -->
         </div>
-         <!-- <img src="app\trelloIcon.png" /> -->
     </div>
 
 </body>
