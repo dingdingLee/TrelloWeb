@@ -248,7 +248,7 @@
     </nav>
 
     <script>
-        const listAddTemplate = '<div class="listWrite"><input type="text" placeholder="Add a list...." id="inputAfterList" class="inputAfterList">'
+        const listAddTemplate = '<div class="listWrite"><input type="text" onkeypress="enterKeyList(this)" placeholder="Add a list...." id="inputAfterList" class="inputAfterList">'
                                 +'<br/><input onClick="onSaveClick(this);"  type="button" class="saveButton" value="Save"/>'
                                 +'<button onClick="onButtonCancleClick(this);" class="buttonCancle">&#215;</button></div>' 
         
@@ -292,7 +292,14 @@
                 document.querySelector(".formList"+saveClickNum.toString()).firstChild.firstChild.focus()
             }
         }
-        //리스트 이름 수정시
+        // 리스트 이름 엔터키로 저장
+        function enterKeyList(obj) {
+            if ( window.event.keyCode == 13 ) {
+                onSaveClick(obj);
+            }
+        }
+
+        // 리스트 이름 수정시
         function onListEditName(obj){
             let listEditNameNum = obj.parentNode.parentNode.parentNode.getAttribute("class");
             let writeListclick = obj.parentNode.childNodes[1]
@@ -308,7 +315,6 @@
         function enterTitle(obj,val) {
             let enterTitleNum = obj.form.getAttribute("class");
             if ( window.event.keyCode == 13 ) {
-                
                 obj.parentElement.parentElement.parentElement.firstChild.firstChild.innerHTML = '<span class="formlistTitle" id="formlistTitle'+enterTitleNum.slice(-1)+'">'+val+'</span>'
                                                 +'<a class="listEditName" onclick="onListEditName(this)">&#183;&#183;&#183;</a>'
             }
