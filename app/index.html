@@ -335,10 +335,17 @@
             }
             
             obj.parentNode.innerHTML = '<div class="addListTextarea">'
-                                        +'<textarea cols="29" rows="4 " class="textareaStyle" id="addTextarea'+addCardLinkNum.slice(-1)+'"></textarea>'
+                                        +'<textarea cols="29" rows="4 " class="textareaStyle" onkeypress="enterKey(this);" id="addTextarea'+addCardLinkNum.slice(-1)+'"></textarea>'
                                         +'<input onClick="onAddCardClick(this);"  type="submit" class="addButton" value="Add"/>'
                                         +'<button onClick="onAddButtonCancleClick(this);" class="addButtonCancle">&#215;</button></div>' 
         }
+        //Textarea 엔터눌렀을시
+        function enterKey(obj) {
+            if ( window.event.keyCode == 13 ) {
+                onAddCardClick(obj);
+            }
+        } 
+
         // 카드 추가할 때 X버튼 눌렀을 시 
         function onAddButtonCancleClick(obj) {
             let addDivTextareaNum = obj.parentNode.parentNode.getAttribute("class");
